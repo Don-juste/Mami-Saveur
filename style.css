@@ -1,0 +1,469 @@
+/* ===== Reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ===== Base ===== */
+:root {
+  --couleur-principale: #c2410c;
+  --couleur-principale-foncee: #9a3412;
+  --couleur-claire: #ffedd5;
+  --couleur-sombre: #1c1917;
+  --couleur-texte: #292524;
+  --couleur-texte-doux: #78716c;
+  --couleur-fond: #fffbf5;
+  --couleur-bordure: #e7e5e4;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--couleur-texte);
+  background: var(--couleur-fond);
+}
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.section {
+  margin-bottom: 80px;
+  scroll-margin-top: 96px;
+}
+.section > h2 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  margin-bottom: 8px;
+}
+.section > h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: var(--couleur-principale);
+}
+.section-intro {
+  color: var(--couleur-texte-doux);
+  margin-bottom: 32px;
+}
+.visuellement-cache {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ===== En-tête ===== */
+.en-tete {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 16px 24px;
+  background: white;
+  border-bottom: 1px solid var(--couleur-bordure);
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--couleur-texte);
+  text-decoration: none;
+}
+.logo span {
+  color: var(--couleur-principale);
+}
+.navigation {
+  order: 1;
+  width: 100%;
+}
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menu a {
+  color: var(--couleur-texte);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.menu a:hover {
+  color: var(--couleur-principale);
+}
+
+/* ===== Boutons ===== */
+.bouton {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.bouton:focus-visible {
+  outline: 3px solid var(--couleur-principale);
+  outline-offset: 3px;
+}
+.bouton-principal {
+  background: var(--couleur-principale);
+  color: white;
+  border: none;
+}
+.bouton-principal:hover {
+  background: var(--couleur-principale-foncee);
+}
+.bouton-secondaire {
+  background: transparent;
+  color: var(--couleur-principale);
+  border: 2px solid var(--couleur-principale);
+}
+.bouton-secondaire:hover {
+  background: var(--couleur-principale);
+  color: white;
+}
+
+/* ===== Hero ===== */
+.hero {
+  /* Zones nommées : on change l'ORDRE visuel sans toucher au HTML */
+  display: grid;
+  grid-template-areas:
+    "image"
+    "texte"
+    "chiffres";
+  gap: 32px;
+  padding: 32px 0 80px;
+}
+.hero-texte {
+  grid-area: texte;
+}
+.hero-image {
+  grid-area: image;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 24px;
+  animation: zoom 0.8s ease-out;
+}
+.hero-surtitre {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--couleur-principale);
+}
+h1 {
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  margin-bottom: 16px;
+}
+/* :not() cible le paragraphe du hero SANS ajouter de classe */
+.hero-texte > p:not(.hero-surtitre) {
+  font-size: 1.125rem;
+  color: var(--couleur-texte-doux);
+  margin-bottom: 24px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.hero-chiffres {
+  grid-area: chiffres;
+  display: flex;
+  justify-content: space-around;
+  padding: 24px 0;
+  background: var(--couleur-claire);
+  border-radius: 16px;
+}
+.chiffre {
+  /* flex: 1 = les 3 chiffres se partagent la largeur à parts égales */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+/* Un trait à droite de chaque chiffre, sauf le dernier */
+.chiffre:not(:last-child) {
+  border-right: 1px solid var(--couleur-principale);
+}
+.chiffre strong {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--couleur-principale-foncee);
+}
+.chiffre span {
+  font-size: 0.875rem;
+  color: var(--couleur-texte-doux);
+}
+
+/* ===== Plats ===== */
+.grille-plats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.carte-plat {
+  position: relative; /* repère du badge en position absolute */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* l'image (et son zoom) ne dépasse pas des coins arrondis */
+  background: white;
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 16px;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+.carte-plat:hover {
+  transform: translateY(-6px);
+  border-color: var(--couleur-principale);
+}
+/* :has() = « la carte qui CONTIENT un badge » */
+.carte-plat:has(.badge) {
+  border-color: var(--couleur-principale);
+}
+.carte-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+/* Survol du PARENT, effet sur l'ENFANT */
+.carte-plat:hover .carte-image {
+  transform: scale(1.05);
+}
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--couleur-principale);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.carte-contenu {
+  /* flex: 1 = prend toute la hauteur restante de la carte */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px;
+}
+.carte-contenu p {
+  color: var(--couleur-texte-doux);
+}
+.carte-bas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; /* colle le bas de carte en bas, même si le texte est court */
+  padding-top: 16px;
+  border-top: 1px solid var(--couleur-bordure);
+}
+.prix {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--couleur-principale);
+}
+.lien-commander {
+  font-weight: 600;
+  color: var(--couleur-texte);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.lien-commander:hover {
+  color: var(--couleur-principale);
+}
+
+/* ===== Atouts ===== */
+.liste-atouts {
+  display: grid;
+  gap: 24px;
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+}
+.atout {
+  padding: 32px 24px;
+  background: white;
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 16px;
+}
+.atout::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: var(--couleur-claire);
+}
+/* :nth-child(2) = le 2e atout, sans classe en plus */
+.atout:nth-child(2) {
+  background: var(--couleur-principale);
+  border-color: var(--couleur-principale);
+  color: white;
+}
+.atout:nth-child(2)::before {
+  background: white;
+}
+.atout p {
+  margin-bottom: 0;
+}
+
+/* ===== Commande ===== */
+.commande {
+  padding: 48px 24px;
+  text-align: center;
+  background: var(--couleur-claire);
+  border-radius: 24px;
+}
+/* Le trait est un bloc de 56px : text-align ne le centre pas, margin auto oui */
+.commande > h2::after {
+  margin: 8px auto 0;
+}
+.formulaire-commande {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  max-width: 520px;
+  margin: 24px auto 0;
+}
+.formulaire-commande input {
+  flex: 1 1 240px; /* base 240px, grandit pour remplir, rétrécit si besoin */
+  padding: 12px 20px;
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+.formulaire-commande input::placeholder {
+  color: var(--couleur-texte-doux);
+}
+.formulaire-commande input:focus-visible {
+  outline: 3px solid var(--couleur-principale);
+  outline-offset: 3px;
+}
+
+/* ===== Pied de page ===== */
+.pied-de-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 24px;
+  background: var(--couleur-sombre);
+  color: white;
+}
+.copyright {
+  margin: 0;
+  font-size: 0.875rem;
+}
+.reseaux {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.reseaux a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.reseaux a:hover {
+  color: var(--couleur-claire);
+  text-decoration: underline;
+}
+
+/* ===== Animations ===== */
+@keyframes zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== Responsive ===== */
+@media (min-width: 768px) {
+  .en-tete {
+    padding: 16px 48px;
+  }
+  .navigation {
+    order: 0;
+    width: auto;
+  }
+  .hero {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "texte image"
+      "chiffres chiffres";
+    align-items: center;
+    gap: 48px;
+    padding-top: 64px;
+  }
+  .pied-de-page {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 32px 48px;
+  }
+}
+@media (min-width: 1024px) {
+  .liste-atouts {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===== Accessibilité ===== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
